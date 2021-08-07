@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <title>ToDo List</title>
+    <style>
+        .main {
+            display: flex;
+            border: 1px solid black;
+            box-shadow: 0 0 10px gray;
+            margin: 20px auto;
+            flex-direction: column;
+            padding: 20px;
+        }
+        input,
+        button {
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-sm-5">
+                <div class="main">
+                    <div>
+                        <input id="input" type="text" placeholder="Enter Todo">
+                        <button id="addButton">Add Task</button>
+                        <button id="clearButton">Clear All</button>
+                        <span>Tasks to do</span> <span id="counter">0</span>
+                        <div id="wrapper">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <script>
+        let btnAdd = document.querySelector('#addButton')
+        let btnClear = document.querySelector('#clearButton')
+        let inputTodo = document.querySelector('#input')
+        let todoWrapper = document.querySelector('#wrapper')
+        let counter = document.querySelector('#counter')
+
+        let dataBase = []
+
+        btnAdd.addEventListener("click" , addTask)
+        btnClear.addEventListener("click" , clearAllTasks)
+
+        function addTask() {
+            let newPara = document.createElement('p')
+            if(!dataBase.includes(inputTodo.value) && inputTodo.value.length >= 3){
+                newPara.innerHTML = inputTodo.value
+                dataBase.push(inputTodo.value)
+                todoWrapper.appendChild(newPara)
+                inputTodo.value=""
+                counter.innerHTML = dataBase.length
+                console.log(dataBase)
+            } else {
+                alert(`${inputTodo.value} already exists`)
+            }            
+        }
+        
+        function clearAllTasks() {
+            todoWrapper.innerHTML = ""
+            inputTodo.value=""
+            dataBase = []
+        }
+    </script>
+
+</body>
+</html>
